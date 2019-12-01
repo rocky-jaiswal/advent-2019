@@ -22,11 +22,10 @@ fun part1(num: Double): Double {
     return floor(data) - 2
 }
 
-fun part2(num: Double, res: List<Double> = emptyList<Double>()): List<Double> {
-    val data = num / 3.0
-    val rem = floor(data) - 2
-    if (rem > 0) {
-        return part2(rem, res.plus(rem))
+tailrec fun part2(num: Double, res: List<Double> = emptyList()): List<Double> {
+    val rem = part1(num)
+    if (rem <= 0) {
+        return res
     }
-    return res
+    return part2(rem, res.plus(rem))
 }
