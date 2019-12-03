@@ -46,7 +46,17 @@ fun main() {
         path2 = path2.plus(traverseDirection(path2.last(), direction, steps)).toMutableList()
     }
 
-    println(findMin(findIntersection(path1, path2)))
+    val intersections = findIntersection(path1, path2)
+
+    // Part 1
+    println(findMin(intersections))
+
+    // Part 2
+    val minSteps = intersections
+            .filter { it != Pair(0, 0) }
+            .map { calcSteps(path1, path2, it) }
+            .min()
+    println(minSteps)
 }
 
 fun traverseDirection(start: Pair<Int, Int>, direction: String, steps: Int): List<Pair<Int, Int>> {
@@ -71,4 +81,20 @@ fun findMin(points: Set<Pair<Int, Int>>): Pair<Int, Int>? {
     return points
             .filter { point -> point != Pair(0, 0) }
             .minBy { point -> abs(point.first) + abs(point.second) }
+}
+
+fun calcSteps(path1: List<Pair<Int, Int>>, path2: List<Pair<Int, Int>>, intersection: Pair<Int, Int>): Int {
+    var i = 0
+    while(true) {
+        if (path1[i] == intersection) break
+        i += 1
+    }
+
+    var j = 0
+    while(true) {
+        if (path2[j] == intersection) break
+        j += 1
+    }
+
+    return i + j
 }
