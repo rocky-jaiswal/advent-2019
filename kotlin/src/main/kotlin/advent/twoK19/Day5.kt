@@ -28,13 +28,44 @@ private fun calc(input: List<Int>) {
             i += 4
         }
         if(code == 3) {
-            mutableInput[mutableInput[i + 1]] = 1
+            mutableInput[mutableInput[i + 1]] = 5
             i += 2
         }
         if(code == 4) {
             println(mutableInput[mutableInput[i + 1]])
             i += 2
         }
+        if(code == 5) {
+            if(mutableInput[i + 1] != 0) {
+                i = mutableInput[mutableInput[i + 2]]
+            } else {
+                i += 2
+            }
+        }
+        if(code == 6) {
+            if(mutableInput[i + 1] == 0) {
+                i = mutableInput[mutableInput[i + 2]]
+            } else {
+                i += 2
+            }
+        }
+        if(code == 7) {
+            if(mutableInput[i + 1] < mutableInput[i + 2]) {
+                mutableInput[mutableInput[i + 3]] = 1
+            } else {
+                mutableInput[mutableInput[i + 3]] = 0
+            }
+            i += 4
+        }
+        if(code == 8) {
+            if(mutableInput[i + 1] == mutableInput[i + 2]) {
+                mutableInput[mutableInput[i + 3]] = 1
+            } else {
+                mutableInput[mutableInput[i + 3]] = 0
+            }
+            i += 4
+        }
+
         if (code > 10) {
             // special code
             val opcode = code % 10
@@ -63,7 +94,6 @@ private fun calc(input: List<Int>) {
                 mutableInput[mutableInput[i + 3]] = op1 * op2
                 i += 4
             }
-
         }
     }
 }
