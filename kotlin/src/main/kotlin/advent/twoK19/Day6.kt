@@ -83,7 +83,7 @@ private fun day6Part2(): Int {
     fun findAllChildren(planet: String): List<String> {
         var agg = emptyList<String>()
 
-        tailrec fun getChildren(planet: String) {
+        fun getChildren(planet: String) {
             val children = relations[planet] ?: emptyList()
             agg = agg.plus(children)
 
@@ -99,17 +99,17 @@ private fun day6Part2(): Int {
     var up = 0
     var down = 0
 
-    tailrec fun goUpFromYou(myParent: String): String {
+    tailrec fun goUp(myParent: String): String {
         val allChildren = findAllChildren(myParent)
         return if (allChildren.contains("SAN")) {
             myParent
         } else {
             up += 1
-            goUpFromYou(findParent(myParent))
+            goUp(findParent(myParent))
         }
     }
 
-    val parentHoldingSanta = goUpFromYou(findParent("YOU"))
+    val parentHoldingSanta = goUp(findParent("YOU"))
 
     tailrec fun keepFinding(some: String) {
         val par = findParent(some)
